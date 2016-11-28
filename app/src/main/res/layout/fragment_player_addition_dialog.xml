@@ -1,0 +1,132 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.stout.basketball.Fragments.DialogFragments.PlayerAdditionDialogFragment"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="First Name"
+            android:ems="10"
+            android:id="@+id/playerAdditionFirstNameEditText"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:hint="Enter a first name."
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Last Name"
+            android:ems="10"
+            android:id="@+id/playerAdditionLastNameEditText"
+            android:layout_below="@+id/playerAdditionFirstNameEditText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Enter a last name." />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/playerAdditionDialogContainer"
+            android:layout_below="@+id/playerAdditionLastNameEditText">
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerPositionLayout"
+                android:layout_alignParentTop="true">
+
+                <TextView
+                    android:text="Player Position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/plaerAdditionPositionTextView"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:gravity="center_horizontal" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerAdditionPositionSpinner"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/playerAdditionLastNameEditText"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/playerNumberLayout">
+
+                <TextView
+                    android:text="Player number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerAdditionNumberTextView"
+                    android:layout_below="@+id/playerAdditionLastNameEditText"
+                    android:layout_alignParentStart="true"
+                    android:textAppearance="@android:style/TextAppearance.Material.Headline"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="false"
+                    android:layout_centerVertical="false"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal" />
+
+                <NumberPicker
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerAdditionNumberPicker"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/playerAdditionNumberTextView"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/playerAdditionDialogButtonContainer"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
+                <Button
+                    android:text="Submit"
+                    android:layout_below="@+id/playerAdditionDialogContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dialogBtnSubmit"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom" />
+
+                <Button
+                    android:text="Cancel"
+                    android:layout_below="@+id/playerAdditionDialogContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dialogBtnCancel"
+                    android:layout_weight="1"
+                    android:layout_gravity="bottom" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
