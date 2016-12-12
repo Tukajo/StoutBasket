@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.tjfri.stoutbasket.R;
 import com.stout.basketball.Fragments.DialogFragments.PlayerAdditionDialogFragment;
+import com.stout.basketball.Fragments.DialogFragments.PlayerShotSelectionDialogFragment;
 import com.stout.basketball.Fragments.PlayerFragment;
 import com.stout.basketball.Fragments.ShotLocationFragment;
 import com.stout.basketball.Models.Player;
@@ -33,9 +34,11 @@ import com.stout.basketball.Utilities.GsonUtility;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements PlayerFragment.OnListFragmentInteractionListener, PlayerAdditionDialogFragment.PlayerAdditionDialogListener {
-
+public class MainActivity extends AppCompatActivity implements ShotLocationFragment.OnShotLocationInteractionListener,
+        PlayerFragment.OnListFragmentInteractionListener, PlayerAdditionDialogFragment.PlayerAdditionDialogListener,
+        PlayerShotSelectionDialogFragment.PlayerShotDialogListener{
     private PlayerAdditionDialogFragment additionDialogFragment;
+    private PlayerShotSelectionDialogFragment playerShotSelectionDialogFragment;
     private PlayerFragment playerFragment;
     private ShotLocationFragment shotFragment;
 
@@ -96,7 +99,11 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         additionDialogFragment = PlayerAdditionDialogFragment.newInstance();
         additionDialogFragment.show(fm, "addition_dialog");
     }
-
+    private void showShotSelectionDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        playerShotSelectionDialogFragment = PlayerShotSelectionDialogFragment.newInstance(1);
+        playerShotSelectionDialogFragment.show(fm, "shot_selection_dialog");
+    }
 
 
     @Override
@@ -132,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
     }
 
     @Override
+    public void onPlayerSelected(Player newPlayer) {
+     //TODO Do something
+    }
+
+    @Override
     public void onDialogSubmitted(Player newPlayer) {
         //Retrieve the list.
         ArrayList<Player> playerList = GsonUtility.fetchArrayListFromStorage(PlayerFragment.ARG_PREFERENCE_KEY,getApplication());
@@ -143,6 +155,11 @@ public class MainActivity extends AppCompatActivity implements PlayerFragment.On
         if(playerFragment!=null){
             playerFragment.addNewPlayer(newPlayer);
         }
+    }
+
+    @Override
+    public void ShotLocationSelected() {
+        showShotSelectionDialog();
     }
 
 

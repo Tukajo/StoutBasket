@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import com.example.tjfri.stoutbasket.R;
+import com.stout.basketball.Fragments.DialogFragments.PlayerShotSelectionDialogFragment;
 import com.stout.basketball.Fragments.PlayerFragment;
 import com.stout.basketball.Interfaces.ItemTouchHelperAdapter;
 import com.stout.basketball.Models.Player;
@@ -22,12 +23,18 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
 
     private final List<Player> mValues;
     private final PlayerFragment.OnListFragmentInteractionListener mListener;
+    private final PlayerShotSelectionDialogFragment.PlayerShotDialogListener mListener1;
 
     public PlayerRecyclerViewAdapter(List<Player> items, PlayerFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
+        mListener1 = null;
         mListener = listener;
     }
-
+    public PlayerRecyclerViewAdapter(List<Player> items, PlayerShotSelectionDialogFragment.PlayerShotDialogListener listener) {
+        mValues = items;
+        mListener1 = listener;
+        mListener = null;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -49,6 +56,8 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                }else if(null != mListener1){
+                    mListener1.onPlayerSelected(holder.mItem);
                 }
             }
         });

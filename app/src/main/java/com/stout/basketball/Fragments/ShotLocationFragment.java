@@ -1,17 +1,25 @@
 package com.stout.basketball.Fragments;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.example.tjfri.stoutbasket.R;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
 public class ShotLocationFragment extends Fragment {
@@ -21,7 +29,7 @@ public class ShotLocationFragment extends Fragment {
     private Button dismiss;
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
-
+    private OnShotLocationInteractionListener mListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.shot_location, container, false);
@@ -35,6 +43,24 @@ public class ShotLocationFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ShotLocationFragment.OnShotLocationInteractionListener) {
+            mListener = (ShotLocationFragment.OnShotLocationInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         final Drawable imgShot = getResources().getDrawable(R.drawable.shot);
@@ -43,29 +69,14 @@ public class ShotLocationFragment extends Fragment {
 
         final RelativeLayout r1 = (RelativeLayout) view.findViewById(R.id.r1);
 
-        /*dismiss = (Button) view.findViewById(R.id.dismiss);
         r1.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View view, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     int x = (int) event.getX();
                     int y = (int) event.getY();
                     layoutInflater = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup, null);
-                    popupWindow = new PopupWindow(container, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-                    popupWindow.showAtLocation(r1, Gravity.NO_GRAVITY, x, y);
 
-                    container.setOnTouchListener(new View.OnTouchListener(){
-                        public boolean onTouch(View view, MotionEvent motionEvent){
-                           *//*if(motionEvent.getAction() == MotionEvent.ACTION_OUTSIDE){
-                               popupWindow.dismiss();
-                               return true;
-                           }
-                           return false;*//*
-                            popupWindow.dismiss();
-                            return true;
-                        }
-                    });
-
+                    mListener.ShotLocationSelected();
 
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     final ImageView iv = new ImageView(getContext());
@@ -85,6 +96,11 @@ public class ShotLocationFragment extends Fragment {
                 }
                 return false;
             }
-        });*/
+        });
+
+    }
+    public interface OnShotLocationInteractionListener {
+        // TODO: Update argument type and name
+        void ShotLocationSelected();
     }
 }
